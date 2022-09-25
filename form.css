@@ -1,0 +1,94 @@
+
+.title {
+    text-align: center;
+    font-size: 4.5vw;
+    font-family: "Sacramento", serif;
+    padding-top: 2%;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 1.5vw;
+    font-family: "Judson", Geneva, Tahoma, sans-serif;
+    padding-top: 1%;
+    color: #a80000;
+}
+
+
+/* Largest Container */
+.bodyContainer {
+    display: flex;
+    margin: auto;
+    padding-top: 5%;
+}
+
+/* First column */
+.column1 {
+    background-color: rgb(54, 250, 70);
+    width: 25%; 
+    height: 50%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1vw;
+    margin: auto;
+}
+
+
+
+
+/* Second column */
+.formColumn {
+    width: 50%;
+    height: 50%;
+    margin: 7%;
+    padding: 2%;
+    border: 1px solid;
+    border-color: rgb(17, 17, 17);
+}
+
+.nameInputRow, .date-timeInputRow {
+    display: flex;
+    margin-bottom: 4%;
+}
+
+.firstNameColumn, .lastNameColumn, .emailColumn, .phoneInputColumn, .dateColumn, .timeColumn {
+    width: 45%;
+    margin: auto; 
+    height: auto;
+}
+
+/* Input & Input Label Formatting */
+.inputLabel {
+    flex-direction: column;
+    font-family: 'Judson', Geneva, Tahoma, sans-serif;
+    width: 100%;
+    margin: auto;
+    color: #a80000;
+    font-size: 1.75vw;
+}
+
+.nameInput, .contactInput, .dateInput, .timeInput, .dayOfWeek {
+    font-size: 1.5vw;
+    flex-direction: column;
+    font-family:'Judson', Times, serif;
+    width: 100%;
+    height: 1.7vw;
+    margin: auto;
+    margin-bottom: 3%;
+}
+
+.timeInput, .dayOfWeek {
+    height: 2vw;
+    font-size: 1.5vw;
+}
+
+
+
+/* Third column */
+.column3 {
+    background-color: rgb(72, 248, 233);
+    width: 25%;
+    height: 50%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1vw;
+    margin: auto;
+}

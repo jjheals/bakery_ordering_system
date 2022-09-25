@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+
+<html> 
+    <head>
+       
+    </head>
+
+    <header> 
+        <link rel="stylesheet" href="form.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sacramento">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Judson">
+    </header>
+
+    <body>
+
+        <div class="title">Josie's Bakery Custom Ordering</div>
+        <div class="subtitle">HAND MADE, WITH LOVE</div>
+
+        <div class="bodyContainer">
+            <div class="column1"> 
+                <h1>Column1 Heading 1</h1>
+                <h2>Column1 Heading 2</h2>
+            </div>
+        
+            <div class="formColumn">
+                <form> 
+                    <div class="nameInputRow">
+                        <div class="firstNameColumn">
+                            <label class="inputLabel">First Name:</label><br>
+                            <input type="text" class="nameInput" id="firstName" name="firstName"><br>
+                            <label class="inputLabel">Email:</label><br>
+                            <input type="email" class="contactInput" id="emailLabel" name="emailInput">
+                        </div>
+
+                        <div class="lastNameColumn">
+                            <label class="inputLabel">Last Name:</label><br>
+                            <input type="text" class="nameInput" id="lastName" name="lastName"><br> 
+                            <label class="inputLabel">Phone Number:</label><br>
+                            <input type="tel" class="contactInput" id="phoneInput" name="phoneInput">   
+                        </div>
+                    </div>
+
+                    <div class="date-timeInputRow">
+                        
+                        <div class="dateColumn">
+
+                            <label class="inputLabel">Day of Week:</label>
+                            <select class="dayOfWeek" id="dayOfWeek" name="dayOfWeek" onChange="checkTimes()" required>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
+                            </select>
+
+                            <label class="inputLabel">Pickup Date:</label>
+                            <input type="date" class="dateInput" id="dateField" name="dateField">
+
+                            <label class="inputLabel">Pickup Time:</label><br>
+                            <select type="select" class="timeInput" id="timeInput" name="timeInput">
+                                <option value="default">    </option>
+                                <option class="options" value="900am" id="900am">9:00 AM</option>
+                                <option class="options" value="930am" id="930am">9:30 AM</option>
+                                <option class="options" value="1000am" id="1000am">10:00 AM</option>
+                                <option class="options" value="1030am" id="1030am">10:30 AM</option>
+                                <option class="options" value="1100am" id="1100am">11:00 AM</option>
+                                <option class="options" value="1130am" id="1130am">11:30 AM</option>
+                                <option class="options" value="1200pm" id="1200pm">12:00 PM</option>
+                                <option class="options" value="1230pm" id="1230pm">12:30 PM</option>
+                                <option class="options" value="100pm" id="100pm">1:00 PM</option>
+                                <option class="options" value="130pm" id="130pm">1:30 PM</option>
+                                <option class="options" value="200pm" id="200pm">2:00 PM</option>
+                                <option class="options" value="230pm" id="230pm">2:30 PM</option>
+                                <option class="options" value="300pm" id="300pm">3:00 PM</option>
+                                <option class="options" value="330pm" id="330pm">3:30 PM</option>
+                                <option class="options" value="400pm" id="400pm">4:00 PM</option>
+                                <option class="options" value="430pm" id="430pm">4:30 PM</option>
+                                <option class="options" value="500pm" id="500pm">5:00 PM</option>
+                                <option class="options" value="530pm" id="530pm">5:30 PM</option>
+                                <option class="options" value="600pm" id="600pm">6:00 PM</option>
+                                <option class="options" value="630pm" id="630pm">6:30 PM</option>
+                                <option class="options" value="700pm" id="700pm">7:00 PM</option>
+                                <option class="options" value="730pm" id="730pm">7:30 PM</option>
+                            </select>
+                            
+                            <script type="text/javascript">
+
+                                // Code for restricting the date people can choose 
+                                // --> Doesn't allow booking within 3 days
+                                // --> Blocks out days in the past
+
+                                var today = new Date();
+                                var dd = today.getDate() + 3; //add 3 days so people can't place custom orders witin 3 days
+                                var mm = today.getMonth() + 1; 
+                                var yyyy = today.getFullYear();
+
+                                if (dd < 10) {
+                                dd = '0' + dd;
+                                }
+
+                                if (mm < 10) {
+                                mm = '0' + mm;
+                                }    
+
+                                today = yyyy + '-' + mm + '-' + dd;
+                                document.getElementById("dateField").setAttribute("min", today);
+
+                                // Function that updates the options for time based on the selected day of the week
+                                // IDEA *** get rid of the "day of week" field and somehow convert the input from the 
+                                //          "dateInput" field to recognize the day of the week instead
+                                // --> For now this will do
+
+                                function checkTimes(){
+                                    
+                                    // Get the currently selected value of dayOfWeek
+
+                                    var selectedDay = document.getElementById("dayOfWeek");
+                                    var value = selectedDay.options[selectedDay.selectedIndex].value;
+                                    
+                                    // Lists of the off hours for each day/range of days 
+
+                                    var tues_weds_thurs_off_hours = ['900am', '930am', '600pm', '630pm', '700pm', '730pm'];
+                                    var fri_sat_off_hours = ['900am', '930am'];
+                                    var sun_off_hours = ['500pm', '530pm', '600pm', '630pm', '700pm', '730pm'];
+                                    
+                                    // List of all the possible times that could be off for ANY day, easier to just skip
+                                    //      times that are in the middle of the day that the store is open everyday during
+
+                                    var timeOffPossibilities = ['900am', '930am', '500pm', '530pm', '600pm', '630pm', '700pm', '730pm'];
+                                    console.log('before conditionals')
+                                    
+                                    // Call the setDisabled function based on the currently selected day in dayOfWeek
+                                    if (value == 'Sunday') {setDisabled(sun_off_hours);}
+                                    else if (value == 'Tuesday' || value == 'Wednesday' || value == 'Thursday') {setDisabled(tues_weds_thurs_off_hours);}
+                                    else if (value == 'Friday' || value == 'Saturday') {setDisabled(fri_sat_off_hours);}
+                                    
+                                    // Takes in a list of times to be disabled 
+                                    // --> Disables those times in the timeInput
+                                    // --> Enables all other times in the timeInput 
+
+                                    function setDisabled(dayOffHoursList) {
+                                        console.log('setDisabled ran with day ' + value);
+
+                                        for(var i = 0; i < timeOffPossibilities.length; i++) {
+                                            thisTime = document.getElementById(timeOffPossibilities[i])
+                                            if(dayOffHoursList.includes(timeOffPossibilities[i])) { 
+                                                thisTime.disabled = true;
+                                                console.log(timeOffPossibilities[i]);
+                                            }
+                                            else {thisTime.disabled = false; console.log(timeOffPossibilities[i] + ' second');}
+                                        }
+                                    }
+                                }
+
+                                // Calls checkTimes at the beginning to initialize
+                                checkTimes();
+                            </script>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="column3">
+                <h1>Column3 Heading 1</h1>
+                <h2>Column3 Heading 2</h2>
+            </div>
+
+        </div>
+        
+
+
+    </body>
+</html>
