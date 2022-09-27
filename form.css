@@ -1,14 +1,16 @@
 
+/* Josie's Bakery Custom Ordering */
 .title {
     text-align: center;
-    font-size: 4.5vw;
+    font-size: 4.25vw;
     font-family: "Sacramento", serif;
-    padding-top: 2%;
+    margin-top: 3%;
 }
 
+/* Hand Made, With Love */
 .subtitle {
     text-align: center;
-    font-size: 1.5vw;
+    font-size: 1.25vw;
     font-family: "Judson", Geneva, Tahoma, sans-serif;
     padding-top: 1%;
     color: #a80000;
@@ -19,10 +21,10 @@
 .bodyContainer {
     display: flex;
     margin: auto;
-    padding-top: 5%;
+    padding-top: 1%;
 }
 
-/* First column */
+/* First (left) column */
 .column1 {
     background-color: rgb(54, 250, 70);
     width: 25%; 
@@ -30,27 +32,42 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 1vw;
     margin: auto;
+    margin-top: 5%;
 }
 
 
 
 
-/* Second column */
+/* Second (middle) column */
+/* Contains the main form */
 .formColumn {
-    width: 50%;
+    width: 36%;
     height: 50%;
     margin: 7%;
+    margin-top: 4%;
     padding: 2%;
     border: 1px solid;
     border-color: rgb(17, 17, 17);
 }
 
-.nameInputRow, .date-timeInputRow {
+/* Formatting for all the rows that are direct children of the <form> */
+.nameInputRow, .date-itemsInputRow, .optionsRow {
     display: flex;
     margin-bottom: 4%;
 }
 
-.firstNameColumn, .lastNameColumn, .emailColumn, .phoneInputColumn, .dateColumn, .timeColumn {
+/* Rows that contain the section labels (Cake Options, Cupcake Options, etc ...) */
+.labelRow {
+    margin-top: 5%;
+    padding-top: 0%;
+    margin-bottom: 3%;
+    font-size: 2.5vw;
+    font-family: "Sacramento", serif; 
+    text-align: center;
+}
+
+/* Formatting for columns that are children to a given row, grandchildren to <form> */
+.childColumn {
     width: 45%;
     margin: auto; 
     height: auto;
@@ -62,12 +79,15 @@
     font-family: 'Judson', Geneva, Tahoma, sans-serif;
     width: 100%;
     margin: auto;
+    margin-bottom: 1%;
     color: #a80000;
-    font-size: 1.75vw;
+    font-size: 1.25vw;
+    letter-spacing: 0.2rem;
 }
 
-.nameInput, .contactInput, .dateInput, .timeInput, .dayOfWeek {
-    font-size: 1.5vw;
+/* Formatting for all the input fields */
+.infoInput, .imageInput, .dayOfWeek, .typeSelect {
+    font-size: 1.2vw;
     flex-direction: column;
     font-family:'Judson', Times, serif;
     width: 100%;
@@ -76,14 +96,33 @@
     margin-bottom: 3%;
 }
 
-.timeInput, .dayOfWeek {
-    height: 2vw;
-    font-size: 1.5vw;
+.imageInput {
+    height: auto;
+    padding-top: 2%;
+    padding-bottom: 2%;
 }
 
+#timeInput {
+    height: 2vw;
+    font-size: 1.25vw;
+}
 
+#dateInput {
+    height: 4vw;
+}
 
-/* Third column */
+/* Formatting for the checkboxes (typeOption & typeOptionLabel) */
+.typeOption {
+    height: 0.8vw;
+    width: 0.8vw;
+}
+
+.typeOptionLabel {
+    font-size: 1.25vw;
+    font-family: "Judson", serif;
+}
+
+/* Third (right) column */
 .column3 {
     background-color: rgb(72, 248, 233);
     width: 25%;
@@ -91,4 +130,5 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 1vw;
     margin: auto;
+    margin-top: 5%;
 }
