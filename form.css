@@ -16,6 +16,14 @@
     color: #a80000;
 }
 
+.divider {
+    height: 0.05vw;
+    width: 100%;
+    border: none;
+    background-color: rgb(30, 30, 30);
+    margin-top: 7%;
+    margin-bottom: 7%;
+}
 
 /* Largest Container */
 .bodyContainer {
@@ -27,12 +35,13 @@
 /* First (left) column */
 .column1 {
     background-color: rgb(54, 250, 70);
-    width: 25%; 
+    width: 20%; 
     height: 50%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 1vw;
     margin: auto;
     margin-top: 5%;
+    margin-left: 3%;
 }
 
 
@@ -41,13 +50,11 @@
 /* Second (middle) column */
 /* Contains the main form */
 .formColumn {
-    width: 36%;
+    width: 59%;
     height: 50%;
     margin: 7%;
     margin-top: 4%;
     padding: 2%;
-    border: 1px solid;
-    border-color: rgb(17, 17, 17);
 }
 
 /* Formatting for all the rows that are direct children of the <form> */
@@ -60,10 +67,11 @@
 .labelRow {
     margin-top: 5%;
     padding-top: 0%;
-    margin-bottom: 3%;
+    margin-bottom: 5%;
     font-size: 2.5vw;
     font-family: "Sacramento", serif; 
-    text-align: center;
+    text-align: left;
+    border-bottom: 1px solid black;
 }
 
 /* Formatting for columns that are children to a given row, grandchildren to <form> */
@@ -71,6 +79,14 @@
     width: 45%;
     margin: auto; 
     height: auto;
+}
+
+#pastriesInputColumn, #otherInputColumn {
+    width: 90%;
+}
+
+#ccStandard, #ccButtercreamDesc {
+    margin-bottom: 15%;
 }
 
 /* Input & Input Label Formatting */
@@ -96,10 +112,17 @@
     margin-bottom: 3%;
 }
 
+#designDescription, #pastriesInput {
+    margin-top: 2%;
+    padding-top: 2%;
+}
+
 .imageInput {
     height: auto;
+    width: 20vw;
     padding-top: 2%;
     padding-bottom: 2%;
+    font-size: 16px;
 }
 
 #timeInput {
@@ -117,18 +140,60 @@
     width: 0.8vw;
 }
 
+.ccTypeOption, .platTypeOption {
+    height: 1.2vw;
+    width: 2.2vw;
+    margin-top: 2%;
+}
+
 .typeOptionLabel {
     font-size: 1.25vw;
     font-family: "Judson", serif;
 }
 
+.submitButton {
+    background-color: #a80000;
+    color: white;
+    border-color: black;
+    border-radius: 20px;
+    border-width: 2px;
+    font-size: 1vw;
+    padding: 1%;
+    font-family: "Judson", serif;
+    width: 20%;
+    height: auto;
+}
+
+#policyLabelDiv {
+    font-size: 1vw;
+    letter-spacing: normal;
+    margin-top: 5%;
+}
+
+#policyContainer {
+    font-size: 12;
+    overflow-y: auto;
+    height: 6vw;
+    width: 90%;
+    padding-left: 3%;
+    padding-right: 3%;
+    margin-top: 2%;
+    margin-bottom: 8%;
+    border: 1px solid #000000;
+}
+
+#designDescription {
+    margin-bottom: 50%;
+}
+
 /* Third (right) column */
 .column3 {
     background-color: rgb(72, 248, 233);
-    width: 25%;
+    width: 20%;
     height: 50%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 1vw;
     margin: auto;
     margin-top: 5%;
+    margin-right: 3%;
 }

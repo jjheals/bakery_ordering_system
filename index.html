@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+</head>
+
+<header>
+  <link rel="stylesheet" href="form.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sacramento">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Judson">
+  <script src="script.js"></script>
+</header>
+
+<body>
+
+  <div class="title">Josie's Bakery Custom Ordering</div>
+  <div class="subtitle">HAND MADE, WITH LOVE</div>
+
+  <div class="bodyContainer">
+    <div class="column1">
+      <h1>Column1 Heading 1</h1>
+      <h2>Column1 Heading 2</h2>
+    </div>
+
+    <div class="formColumn">
+      <form>
+
+        <div class="labelRow" id="contactInfoLabel">
+          <div class="optionsLabel">Contact Info</div>
+        </div>
+
+        <!-- First Row == F&L Name, Email, Phone -->
+        <div class="nameInputRow">
+          <div class="childColumn" id="fNameColumn">
+            <label class="inputLabel">First Name:</label><br>
+            <input type="text" class="infoInput" id="firstName" name="firstName" value="" required><br>
+            <label class="inputLabel">Email:</label><br>
+            <input type="email" class="infoInput" id="emailLabel" name="emailInput" value=""
+              placeholder="example@gmail.com" required>
+          </div>
+
+          <div class="childColumn" id="lNameColumn">
+            <label class="inputLabel">Last Name:</label><br>
+            <input type="text" class="infoInput" id="lastName" name="lastName" value="" required><br>
+            <label class="inputLabel">Phone Number:</label><br>
+            <input type="tel" class="infoInput" id="phoneInput" name="phoneInput" value="" required>
+          </div>
+        </div>
+
+
+        <!-- Second Row == Pickup Date & Time & options selection -->
+        <div class="date-itemsInputRow">
+
+          <!-- Left Column -->
+          <div class="childColumn" id="dateColumn">
+            <label class="inputLabel">Pickup Date:</label>
+            <input type="date" class="infoInput" id="dateInput" name="dateInput" value="" onChange="checkTimes()"
+              required>
+
+            <label class="inputLabel">Pickup Time:</label><br>
+            <select type="select" class="infoInput" id="timeInput" value="" name="timeInput" required>
+              <option value=""> </option>
+              <option class="options" value="900am" id="900am" name="900am">9:00 AM</option>
+              <option class="options" value="930am" id="930am" name="930am">9:30 AM</option>
+              <option class="options" value="1000am" id="1000am" name="1000am">10:00 AM</option>
+              <option class="options" value="1030am" id="1030am" name="1030am">10:30 AM</option>
+              <option class="options" value="1100am" id="1100am" name="1100am">11:00 AM</option>
+              <option class="options" value="1130am" id="1130am" name="1130am">11:30 AM</option>
+              <option class="options" value="1200pm" id="1200pm" name="1200pm">12:00 PM</option>
+              <option class="options" value="1230pm" id="1230pm" name="1230pm">12:30 PM</option>
+              <option class="options" value="100pm" id="100pm" name="100pm">1:00 PM</option>
+              <option class="options" value="130pm" id="130pm" name="130pm">1:30 PM</option>
+              <option class="options" value="200pm" id="200pm" name="200pm">2:00 PM</option>
+              <option class="options" value="230pm" id="230pm" name="230pm">2:30 PM</option>
+              <option class="options" value="300pm" id="300pm" name="300pm">3:00 PM</option>
+              <option class="options" value="330pm" id="330pm" name="330pm">3:30 PM</option>
+              <option class="options" value="400pm" id="400pm" name="400pm">4:00 PM</option>
+              <option class="options" value="430pm" id="430pm" name="430pm">4:30 PM</option>
+              <option class="options" value="500pm" id="500pm" name="500pm">5:00 PM</option>
+              <option class="options" value="530pm" id="530pm" name="530pm">5:30 PM</option>
+              <option class="options" value="600pm" id="600pm" name="600pm">6:00 PM</option>
+              <option class="options" value="630pm" id="630pm" name="630pm">6:30 PM</option>
+              <option class="options" value="700pm" id="700pm" name="700pm">7:00 PM</option>
+              <option class="options" value="730pm" id="730pm" name="730pm">7:30 PM</option>
+            </select>
+
+            <script type="text/javascript">
+
+              // Code for restricting the date people can choose 
+              // --> Doesn't allow booking within 3 days
+              // --> Blocks out days in the past
+
+              var today = new Date();
+              var dd = today.getDate() + 4; //add 4 days so people can't place custom orders witin 3 days
+              var mm = today.getMonth() + 1;
+              var yyyy = today.getFullYear();
+
+              // Checks that mm & dd are valid inputs to dateInput
+              function mmddToString() {
+                if (dd < 10) {dd = '0' + dd;}
+                else {dd.toString();}
+                if (mm < 10) {mm = '0' + mm;}
+                else {mm.toString();}
+              }
+
+              mmddToString();
+
+              lom31 = ['01', '03', '05', '07', '10', '12'];
+              lom30 = ['04', '06', '09', '11'];
+
+              // Make sure today + 4 is a valid day
+              // --> Not "Sept 31st", "Feb 29th" etc . . .
+              if ((lom31.includes(mm) && dd > 31) || (lom30.includes(mm) && dd > 30)) {
+
+                // Convert mm and dd back to decimal (int)
+                mm = parseInt(mm);
+                dd = parseInt(dd);
+
+                // Find how many days over
+                diff = 30 - dd;
+
+                // Check if mm + 1 is 13 (Jan) 
+                // --> If yes: mm -> 0
+                if ((mm + 1) == 13) {mm = 0;}
+                // --> If no: mm -> mm + 1
+                else {mm = mm + 1;}
+
+                // Set the day to the correct day based on the difference & make diff positive
+                dd = diff * -1;
+
+                // Reset mm & dd to strings
+                mmddToString();
+              }
+
+              today = yyyy + '-' + mm + '-' + dd;
+              document.getElementById("dateInput").setAttribute("min", today);
+
+
+              // Function that updates the options for time based on the selected day of the week
+              // IDEA *** get rid of the "day of week" field and somehow convert the input from the 
+              //          "dateInput" field to recognize the day of the week instead
+              // --> For now this will do
+
+              function checkTimes() {
+
+                // Get the currently selected value of dayOfWeek
+
+                var selectedDate = document.getElementById("dateInput").valueAsDate;
+                var thisDate = new Date(selectedDate);
+                var dow = thisDate.getDay();
+
+                // Check if Monday is selected
+                if (dow == 0) {
+                  document.getElementById("dateInput").value = null;
+                  alert("We are closed on Mondays :(")
+                }
+                // Lists of the off hours for each day/range of days 
+                var tues_weds_thurs_off_hours = ['900am', '930am', '600pm', '630pm', '700pm', '730pm'];
+                var fri_sat_off_hours = ['900am', '930am'];
+                var sun_off_hours = ['500pm', '530pm', '600pm', '630pm', '700pm', '730pm'];
+
+                // List of all the possible times 
+                var timeOffPossibilities = ['900am', '930am', '1000am', '1030am', '1100am', '1130am', '1200pm', '1230pm', '100pm', '130pm', '200pm', '230pm', '300pm', '400pm', '430pm', '500pm', '530pm', '600pm', '630pm', '700pm', '730pm'];
+
+                // Call the setDisabled function based on the currently selected day in dayOfWeek
+                if (dow == 6) {setDisabled(sun_off_hours);}
+                else if (dow >= 1 && dow < 4) {setDisabled(tues_weds_thurs_off_hours);}
+                else if (dow >= 4 && dow <= 5) {setDisabled(fri_sat_off_hours);}
+
+
+                // Takes in a list of times to be disabled 
+                // --> Disables those times in the timeInput
+                // --> Enables all other times in the timeInput 
+
+                function setDisabled(dayOffHoursList) {
+                  for (var i = 0; i < timeOffPossibilities.length; i++) {
+                    thisTime = document.getElementById(timeOffPossibilities[i]);
+                    if (dayOffHoursList.includes(timeOffPossibilities[i])) {
+                      thisTime.disabled = true;
+                    }
+                    else {thisTime.disabled = false;}
+                  }
+                }
+              }
+
+              // Calls checkTimes the first time the script runs to initialize
+              checkTimes();
+
+            </script>
+          </div>
+
+          <!-- Right Column -->
+          <div class="childColumn" id="itemsSelectionColumn">
+            <label class="inputLabel" id="itemsToOrderLabel">Item(s) to order:</label><br>
+            <!-- Cake option -->
+            <input type="checkbox" class="typeOption" id="cakeOption" value="on" name="orderCake"
+              onchange="updateOptions(0)">
+            <label class="typeOptionLabel">Cake</label><br>
+            <!-- Cupcake option -->
+            <input type="checkbox" class="typeOption" id="cupcakeOption" value="on" name="orderCupcakes"
+              onchange="updateOptions(1)">
+            <label class="typeOptionLabel">Cupcakes</label><br>
+            <!-- Platter option -->
+            <input type="checkbox" class="typeOption" id="platterOption" value="on" name="orderPlatters"
+              onchange="updateOptions(2)">
+            <label class="typeOptionLabel">Platter(s)</label><br>
+            <!-- Pastries option -->
+            <input type="checkbox" class="typeOption" id="pastriesOption" value="on" name="orderPastries"
+              onchange="updateOptions(3)">
+            <label class="typeOptionLabel">Individual Pastries</label><br>
+            <!-- Other option -->
+            <input type="checkbox" class="typeOption" id="otherOption" value="on" name="orderOther"
+              onchange="updateOptions(4)">
+            <label class="typeOptionLabel">Other (not listed)</label><br><br>
+          </div>
+
+        </div>
+
+        <!-- Cake Options -->
+        <div class="labelRow" id="cakeLabelRow">
+          <div class="optionsLabel" id="cakeOptionsLabel">Cake Options</div>
+        </div>
+        <div class="optionsRow" id="cakeOptionsRow">
+          <!-- Break cake options row into two columns -->
+
+          <!-- Left Column -->
+          <div class="childColumn" name="cakeLeftColumn" id="cakeLeftColumn">
+            <label class="inputLabel" id="cakeSizeLabel">Cake Size</label><br>
+            <select class="typeSelect" id="cakeSize" value="" name="cakeSize">
+              <option value=""> </option>
+              <option class="options" value="6_inch" id="6_inch">6 inch</option>
+              <option class="options" value="7_inch" id="7_inch">7 inch</option>
+              <option class="options" value="8_inch" id="8_inch">8 inch</option>
+              <option class="options" value="9_inch" id="9_inch">9 inch</option>
+              <option class="options" value="10_inch" id="10_inch">10 inch</option>
+              <option class="options" value="11_inch" id="11_inch">11 inch</option>
+              <option class="options" value="12_inch" id="12_inch">12 inch</option>
+              <option class="options" value="customSize" id="customSize">Other/Tiered</option>
+              <option class="options" value="unsure" id="unsure">Unsure</option>
+            </select><br>
+
+            <label class="inputLabel" id="servingCountLabel">Number of Servings</label><br>
+            <input type="number" class="infoInput" id="servingCount" name="servingCount" value=""><br>
+
+            <label class="inputLabel" id="outsideBCFlavor">Outer Buttercream</label><br>
+            <select class="typeSelect" id="outsideBCFlavor" name="bcOutside">
+              <option value=""> </option>
+              <option class="options" value="bcOVanilla" id="bcOVanilla">Vanilla</option>
+              <option class="options" value="bcOChocolate" id="bcOChocolate">Chocolate</option>
+              <option class="options" value="bcOCreamCheese" id="bcOCreamCheese">Cream Cheese</option>
+              <option class="options" value="bcOStrawberry" id="bcOStrawberry">Strawberry</option>
+              <option class="options" value="bcORaspberry" id="bcORaspberry">Raspberry</option>
+              <option class="options" value="bcOLemon" id="bcOLemon">Lemon</option>
+              <option class="options" value="bcOCoconut" id="bcOCoconut">Coconut</option>
+              <option class="options" value="bcOAlmond" id="bcOAlmond">Almond</option>
+              <option class="options" value="bcONutella" id="bcONutella">Nutella</option>
+              <option class="options" value="bcOPeanutButter" id="bcOPeanutButter">Peanut Butter</option>
+              <option class="options" value="bcOOreo" id="bcOOreo">Oreo</option>
+              <option class="options" value="bcOCaramel" id="bcOCaramel">Caramel</option>
+              <option class="options" value="bcOCaramelMacc" id="bcOCaramelMacc">Caramel Macchiato</option>
+              <option class="options" value="bcOCookieButter" id="bcOCookieButter">Cookie Butter</option>
+              <option class="options" value="bcOCannCC" id="bcOCannCC">Cannoli WITH Choc. Chips</option>
+              <option class="options" value="bcOCannPL" id="bcOCannPL">Cannoli NO Choc. Chips</option>
+              <option class="options" value="bcOFontant" id="bcOFondant">Fondant (Covered)</option>
+              <option class="options" value="bcOOther" id="bcOOther">Other/Not Listed</option>
+            </select>
+          </div>
+
+          <!-- Right Column -->
+          <div class="childColumn" name="cakeRightColumn" id="cakeRightColumn">
+            <label class="inputLabel" id="cakeFlavorLabel">Cake Flavor</label><br>
+            <select class="typeSelect" id="cakeFlavor" name="ckFlavor">
+              <option value=""> </option>
+              <option class="options" value="ckWhite" id="ckWhite">White</option>
+              <option class="options" value="ckYellow" id="ckYellow">Yellow</option>
+              <option class="options" value="ckChocolate" id="ckChocolate">Chocolate</option>
+              <option class="options" value="ckRedVelvet" id="ckRedVelvet">Red Velvet</option>
+              <option class="options" value="ckFunfetti" id="ckFunfetti">Funfetti</option>
+              <option class="options" value="ckCarrot" id="ckCarrot">Carrot</option>
+              <option class="options" value="ckSpice" id="ckSpice">Spice</option>
+              <option class="options" value="ckMarble" id="ckMarble">Marble</option>
+            </select><br>
+
+            <label class="inputLabel" id="bcFillingLabel">Filling Flavor</label><br>
+            <select class="typeSelect" id="bcFilling" name="ckFilling">
+              <option value=""> </option>
+              <option class="options" value="bcFVanilla" id="bcFVanilla">Vanilla</option>
+              <option class="options" value="bcFChocolate" id="bcFChocolate">Chocolate</option>
+              <option class="options" value="bcFCreamCheese" id="bcFCreamCheese">Cream Cheese</option>
+              <option class="options" value="bcFStrawberry" id="bcFStrawberry">Strawberry</option>
+              <option class="options" value="bcFRaspberry" id="bcFRaspberry">Raspberry</option>
+              <option class="options" value="bcFLemon" id="bcFLemon">Lemon</option>
+              <option class="options" value="bcFCoconut" id="bcFCoconut">Coconut</option>
+              <option class="options" value="bcFAlmond" id="bcFAlmond">Almond</option>
+              <option class="options" value="bcFNutella" id="bcFNutella">Nutella</option>
+              <option class="options" value="bcFPeanutButter" id="bcFPeanutButter">Peanut Butter</option>
+              <option class="options" value="bcFOreo" id="bcFOreo">Oreo</option>
+              <option class="options" value="bcFCaramel" id="bcFCaramel">Caramel</option>
+              <option class="options" value="bcFCaramelMacc" id="bcFCaramelMacc">Caramel Macchiato</option>
+              <option class="options" value="bcFCookieButter" id="bcFCookieButter">Cookie Butter</option>
+              <option class="options" value="bcFCannCC" id="bcFCannCC">Cannoli WITH Choc. Chips</option>
+              <option class="options" value="bcFCannPL" id="bcFCannPL">Cannoli NO Choc. Chips</option>
+              <option class="options" value="bcFOther" id="bcFOther">Other/Not Listed</option>
+            </select><br>
+
+            <label class="inputLabel" id="messageInputLabel">Message (Writing)</label>
+            <input type="text" class="infoInput" placeholder='"Happy Birthday John"' name="message" value="">
+          </div>
+        </div>
+
+
+
+        <!-- Cupcake Options -->
+        <div class="labelRow" id="cupcakeLabelRow">
+          <div class="optionsLabel" id="cupcakeOptionsLabel">Cupcake Options</div>
+        </div>
+        <div class="optionsRow" id="cupcakeOptionsRow">
+
+          <!-- Left Column -->
+          <div class="childColumn" id="cupcakeLeftColumn">
+
+            <!-- Cupcake flavor(s) selection -->
+            <label class="inputLabel" id="cupcakeFlavorLabel">Cupcake Flavors [count]</label><br>
+
+            <input type="number" class="ccTypeOption" value="" id="ccWhite" name="ccWhite">
+            <label class="typeOptionLabel" id="ccWhiteLabel">White</label><br>
+
+            <input type="number" class="ccTypeOption" value="" id="ccYellow" name="ccYellow">
+            <label class="typeOptionLabel" id="ccYellowLabel">Yellow</label><br>
+
+            <input type="number" class="ccTypeOption" value="" id="ccChocolate" name="ccChocolate">
+            <label class="typeOptionLabel" id="ccChocolateLabel">Chocolate</label><br>
+
+            <input type="number" class="ccTypeOption" value="" id="ccRedVelvet" name="ccRedVelvet">
+            <label class="typeOptionLabel" id="ccRedVelvetLabel">Red Velvet</label><br>
+
+            <input type="number" class="ccTypeOption" value="" id="ccFunfetti" name="ccFunfetti">
+            <label class="typeOptionLabel" id="ccFunfettiLabel">Funfetti</label><br>
+
+            <input type="number" class="ccTypeOption" value="" id="ccCarrot" name="ccCarrot">
+            <label class="typeOptionLabel" id="ccCarrotLabel">Carrot</label><br>
+
+            <input type="number" class="ccTypeOption" value="" id="ccSpice" name="ccSpice">
+            <label class="typeOptionLabel" id="ccSpiceLabel">Spice</label><br>
+
+          </div>
+
+          <!-- Right Column -->
+          <div class="childColumn" id="cupcakeRightColumn">
+
+            <!-- Selection -->
+            <label class="inputLabel" id="ccSelectionLabel">Type/Size:</label><br>
+
+            <input type="number" class="ccTypeOption" id="ccMini" name="ccMini">
+            <label class="typeOptionLabel" value="" id="ccWhiteLabel">Mini (pre-order only)</label><br>
+
+            <input type="number" class="ccTypeOption" id="ccStandard" name="ccStardard">
+            <label class="typeOptionLabel" value="" id="ccStandard">Standard</label><br>
+
+            <label class="inputLabel" id="ccDescLabel">Buttercream Flavor(s)</label>
+            <input type="text" class="infoInput" id="ccButtercreamDesc" placeholder='Ex. "6x vanilla & 6x chocolate"'
+              name="ccButtercream">
+          </div>
+        </div>
+
+
+
+        <!-- Platter Options -->
+        <div class="labelRow" id="platterLabelRow">
+          <label class="optionsLabel" id="platterOptionsLabel">Platter Options</label>
+        </div>
+        <div class="optionsRow" id="platterOptionsRow">
+          <!-- Left Column -->
+          <div class="childColumn" id="plattersLeftColumn">
+            <label class="inputLabel" id="pastryPlattersLabel">Pastry Platters</label><br><br>
+            <input type="number" value="" id="smPastryPlatterCount" class="platTypeOption" name="smPastryPlatter">
+            <label class="typeOptionLabel" id="smPastryPlatterCountLabel">Small (~35 pieces)</label><br>
+            <input type="number" value="" id="lgPastryPlatterCount" class="platTypeOption" name="largePastryPlatter">
+            <label class="typeOptionLabel" id="smPastryPlatterCountLabel">Large (~50 pieces)</label>
+          </div>
+          <!-- Right Column -->
+          <div class="childColumn" id="plattersRightColumn">
+            <label class="inputLabel" id="pastryPlattersLabel">Cookie Platters</label><br><br>
+            <input type="number" value="" id="smCookiePlatterCount" class="platTypeOption" name="smCookiePlatter">
+            <label class="typeOptionLabel" id="smCookiePlatterCountLabel">Small (~35 pieces)</label><br>
+            <input type="number" value="" id="lgCookiePlatterCount" class="platTypeOption" name="lgCookiePlatter">
+            <label class="typeOptionLabel" id="smCookiePlatterCountLabel">Large (~50 pieces)</label>
+          </div>
+        </div>
+
+
+
+        <!-- Pastry Options -->
+        <div class="labelRow" id="pastriesLabelRow">
+          <label class="optionsLabel" id="pastriesOptionsLabel">Pastry Options</label>
+        </div>
+        <div class="optionsRow" id="pastriesOptionsRow">
+          <div class="childColumn" id="pastriesInputColumn">
+            <label class="inputLabel" id="pastriesInputLabel">List the pastries you'd like:</label>
+            <textarea id="pastriesInput" class="infoInput"
+              placeholder='Ex. "24 chocolate chip cannolis, 12 plain cannolis"' name="pastries"></textarea>
+          </div>
+        </div>
+
+
+
+        <!-- Other Options -->
+        <div class="labelRow" id="otherLabelRow">
+          <label class="optionsLabel" id="otherOptionsLabel">Other Options</label>
+        </div>
+        <div class="optionsRow" id="otherOptionsRow">
+          <div class="childColumn" id="otherInputColumn">
+            <label class="inputLabel" id="otherInputLabel">Please describe what you are looking for:</label>
+            <textarea id="otherInput" class="infoInput" name="otherDescription"></textarea>
+          </div>
+        </div>
+
+        <br>
+        <hr class="divider">
+        <!-- Image/Reference Input -->
+        <div id="imageInputDiv">
+          <br><label class="inputLabel" id="imgInputLabel">Reference Pictures (if applicable)</label><br>
+          <input type="file" class="imageInput" name="referenceImages" multiple><br>
+
+          <label class="inputLabel" id="designDescriptionLabel">Design Description:</label>
+          <input type="textarea" class="infoInput" id="designeDescription" placeholder="Be as specific as possible!"
+            name="designDescription">
+
+        </div>
+
+        <!-- Javascript for handling the showing/hiding of the labelRows and their respective optionsRows -->
+        <script type="text/javascript">
+
+          /* Function that shows or hides respective labelRows and optionRows based on which options are selected */
+          function updateOptions(i) {
+            options = ["cakeOption", "cupcakeOption", "platterOption", "pastriesOption", "otherOption"];
+            rows = ["cakeOptionsRow", "cupcakeOptionsRow", "platterOptionsRow", "pastriesOptionsRow", "otherOptionsRow"]
+            labelRows = ["cakeLabelRow", "cupcakeLabelRow", "platterLabelRow", "pastriesLabelRow", "otherLabelRow"]
+
+            thisOption = document.getElementById(options[i]);
+            thisRow = document.getElementById(rows[i]);
+            thisLabelRow = document.getElementById(labelRows[i]);
+
+            if (thisOption.checked) {thisRow.style.display = "flex"; thisLabelRow.style.display = "block"; thisOption.value = true;}
+            else {thisRow.style.display = "none"; thisLabelRow.style.display = "none"; thisOption.value = false;}
+          }
+
+          /* Call updateOptions on first run to initialize */
+          for (var i = 0; i < 5; i++)
+            updateOptions(i);
+        </script>
+
+
+        <!-- Disclosure -->
+        <div id="policyLabelDiv">
+          <input type="checkbox" id="policyInput" class="typeOption" name="policyAgreement" required>
+          <label for="policy" class="inputLabel" id="policyLabel">I agree to the policy below.</label><br>
+        </div>
+
+
+        <div id="policyContainer">
+          <p id="policy">
+            By checking this box you acknowledge that submission of this form does NOT constitute a completed order.
+            We will contact you as soon as possible to confirm the price and details of your order .
+            As a courtesy, we ask that you please refrain from calling the store or emailing us regarding your order
+            within 2 days of submission of this form (excluding Mondays and other days we are not open) as we may be
+            processing the details of your order and may not be able to answer all your questions.
+          </p>
+        </div>
+
+        <input type="submit" id="submitButton" class="submitButton" value="Send Inquiry" onclick="onSubmit()">
+      </form>
+
+    </div>
+
+    <div class="column3">
+      <h1>Column3 Heading 1</h1>
+      <h2>Column3 Heading 2</h2>
+    </div>
+
+  </div>
+  
+</body>
+
+</html>
