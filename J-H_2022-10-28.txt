@@ -1,0 +1,7 @@
+firstName : J
+emailInput : example@gmail.com
+lastName : H
+phoneInput : 0000000000
+dateInput : 2022-10-28
+timeInput : 1100am
+policyAgreement : on
