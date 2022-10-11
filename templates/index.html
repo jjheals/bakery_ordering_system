@@ -2,6 +2,9 @@
 
 <html>
 
+<head>
+  <meta charset="utf-8">
+</head>
 <header>
   <link rel="stylesheet" href="../static/form.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sacramento">
@@ -16,7 +19,7 @@
   <div class="bodyContainer">
 
     <div class="formColumn">
-      <form action="/received" method="post">
+      <form id="formID" name="formName" action="/received" method="post" enctype="multipart/form-data">
 
         <div class="labelRow" id="contactInfoLabel">
           <div class="optionsLabel">Contact Info</div>
@@ -98,11 +101,11 @@
 
               mmddToString();
 
-              // Make sure today + 4 is a valid day
-              // --> Not "Sept 31st", "Feb 29th" etc . . .
               lom31 = ['01', '03', '05', '07', '10', '12'];
               lom30 = ['04', '06', '09', '11'];
-              
+
+              // Make sure today + 4 is a valid day
+              // --> Not "Sept 31st", "Feb 29th" etc . . .
               if ((lom31.includes(mm) && dd > 31) || (lom30.includes(mm) && dd > 30)) {
 
                 // Convert mm and dd back to decimal (int)
@@ -125,16 +128,19 @@
                 mmddToString();
               }
 
-              // CHECK FOR FEBRUARY EDGE CASE !!!
-
-
               today = yyyy + '-' + mm + '-' + dd;
               document.getElementById("dateInput").setAttribute("min", today);
 
+
               // Function that updates the options for time based on the selected day of the week
+              // IDEA *** get rid of the "day of week" field and somehow convert the input from the 
+              //          "dateInput" field to recognize the day of the week instead
+              // --> For now this will do
+
               function checkTimes() {
 
                 // Get the currently selected value of dayOfWeek
+
                 var selectedDate = document.getElementById("dateInput").valueAsDate;
                 var thisDate = new Date(selectedDate);
                 var dow = thisDate.getDay();
@@ -161,6 +167,7 @@
                 // Takes in a list of times to be disabled 
                 // --> Disables those times in the timeInput
                 // --> Enables all other times in the timeInput 
+
                 function setDisabled(dayOffHoursList) {
                   for (var i = 0; i < timeOffPossibilities.length; i++) {
                     thisTime = document.getElementById(timeOffPossibilities[i]);
@@ -204,7 +211,6 @@
           </div>
 
         </div>
-
 
         <!-- Cake Options -->
         <div class="labelRow" id="cakeLabelRow">
@@ -401,18 +407,15 @@
           </div>
         </div>
 
-
         <br>
         <hr class="divider">
-
         <!-- Image/Reference Input -->
         <div id="imageInputDiv">
           <br><label class="inputLabel" id="imgInputLabel">Reference Pictures (if applicable)</label><br>
-          <input type="file" class="imageInput" name="referenceImages" multiple><br>
+          <input type="file" class="imageInput" id="imageInput" name="imgs"  accept="image/*" multiple><br>
 
           <label class="inputLabel" id="designDescriptionLabel">Design Description:</label>
-          <input type="textarea" class="infoInput" id="designeDescription" placeholder="Be as specific as possible!"
-            name="designDescription">
+          <input type="textarea" class="infoInput" id="designeDescription" placeholder="Be as specific as possible!" name="designDescription">
 
         </div>
 
@@ -439,11 +442,12 @@
         </script>
 
 
-        <!-- Policy/Disclosure -->
+        <!-- Disclosure -->
         <div id="policyLabelDiv">
           <input type="checkbox" id="policyInput" class="typeOption" name="policyAgreement" required>
           <label for="policy" class="inputLabel" id="policyLabel">I agree to the policy below.</label><br>
         </div>
+
 
         <div id="policyContainer">
           <p id="policy">
@@ -455,8 +459,7 @@
           </p>
         </div>
 
-        <input type="submit" id="submitButton" class="submitButton" value="Send Inquiry" onclick="onSubmit()">
-
+        <input type="submit" id="submitButton" name="submitButton" class="submitButton" value="Send Inquiry">
       </form>
 
     </div>
