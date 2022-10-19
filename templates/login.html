@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<!-- NOTE: This page is for purely testing purposes at this stage. It is not secured yet, but the application 
+            is not deployed yet. This needs updates like:
+                -> Security improvements 
+                -> Style changes
+                -> Access control
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <header>
+        <link rel="stylesheet" href="../static/login.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sacramento">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Judson">
+    </header>
+
+    <body>
+        <h1 id="title">Employee Login</h1>
+        <div id="formContainer">
+            <form id="loginForm" name="loginForm" action="/auth" method="post">
+                <div id="inputContainer">
+                        <input type="text" id="username" name="username" class="input" placeholder="Username" required>
+                        <input type="password" id="password" name="password" class="input" placeholder="Password" required password>
+                        <input type="submit" id="submitButton">
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
