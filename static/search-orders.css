@@ -1,0 +1,94 @@
+#title {
+    font-size: 5vw;
+    font-weight: 100;
+    font-family: 'Sacramento', serif;
+    color: black;
+    text-align: center;
+    width: 90%;
+    height: auto;
+    margin: auto;
+    padding-top: 2%;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+#searchForLabel {
+    font-size: 2.5vw;
+    font-family: 'Judson', serif;
+    color: #a80000;
+    margin-top: 6%;
+    margin-bottom: 2%;
+    margin-left: 3%;
+}
+
+#formContentContainer {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin-left: 3%;
+    border: 1px solid black;
+    padding: 2%;
+    padding-bottom: 0%;
+}
+
+#labelContainer {
+    width: 10%;
+}
+
+#inputContainer {
+    width: 80%;
+    background-color: blue;
+}
+
+.input {
+    font-size: 0.75vw;
+    width: auto;
+    height: 1.5vw;
+    font-size: 1.25vw;
+    margin-bottom: 2%;
+    padding: 0.5%;
+}
+
+.label {
+    font-family: 'Judson', serif;
+    width: 5%;
+    height: 1.75vw;
+    font-size: 2.1vw;
+    margin-right: 1%;
+    margin-bottom: 2%;
+    padding-right: 2%;
+}
+
+#outputArea {
+    border: 1px solid black;
+    padding-left: 2%;
+}
+
+.generalInfo {
+    font-size: 1vw;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+}
+
+#submitButton {
+    margin-left: 3%;
+    margin-top: 1.5%;
+    font-size: 1.3vw;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    height: auto;
+    width: auto;
+    background-color: #a80000;
+    color: white;
+    font-weight: 200;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    padding-left: 1%;
+    padding-right: 1%;
+    border-radius: 2em;
+    margin-bottom: 7%;
+}
+
+
