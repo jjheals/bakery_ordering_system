@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+<header>
+  <link rel="stylesheet" href="../static/form.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sacramento">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Judson">
+</header>
+
+<body>
+
+  <div class="title">Josie's Bakery Custom Ordering</div>
+  <div class="subtitle">HAND MADE, WITH LOVE</div>
+
+  <div id='errorMessageDiv' {{errorStatus}}>
+      <h2 id='errorMessage'>Error: There was a problem processing your inquiry. Try using a different name and/or pickup date. If this doesn't resolve the issue, give us a call at (978) 447-1847 and a member of our team can help you directly.</h2>
+  </div>
+    
+  <div class="bodyContainer">
+    </div>
+    <div class="formColumn">
+      <form id="formID" name="formName" action="/received" method="post" enctype="multipart/form-data">
+
+        <div class="labelRow" id="contactInfoLabel">
+          <div class="optionsLabel">Contact Info</div>
+        </div>
+
+        <!-- First Row == F&L Name, Email, Phone -->
+        <div class="nameInputRow">
+          <div class="childColumn" id="fNameColumn">
+            <label class="inputLabel">First Name</label><br>
+            <input type="text" class="infoInput" id="firstName" name="First Name" value="" required><br>
+            <label class="inputLabel">Last Name</label><br>
+            <input type="text" class="infoInput" id="lastName" name="Last Name" value="" required> 
+          </div>
+          <div class="childColumn" id="lNameColumn">
+            <label class="inputLabel">Email</label><br>
+            <input type="email" class="infoInput" id="emailLabel" name="Email" value=""
+              placeholder="example@gmail.com" required><br>
+            <label class="inputLabel">Phone Number</label><br>
+            <input type="tel" class="infoInput" id="phoneInput" name="Phone Number" value="" required>
+          </div>
+        </div>
+
+
+        <!-- Second Row == Pickup Date & Time & options selection -->
+        <div class="date-itemsInputRow">
+
+          <!-- Left Column -->
+          <div class="childColumn" id="dateColumn">
+            <label class="inputLabel">Pickup Date</label>
+            <select type="select" class="infoInput" id="dateInput" value="" name="Date" required>
+              <option value=""> </option>
+              <option class="options" value="Tuesday" name="Tuesday">Tuesday Nov. 22nd</option>
+              <option class="options" value="Wednesday" name="Wednesday">Wednesday Nov. 23rd</option>
+            </select>
+
+            <label class="inputLabel">Pickup Time</label><br>
+            <select type="select" class="infoInput" id="timeInput" value="" name="Time" required>
+              <option value=""> </option>
+              <option class="options" value="1000am" id="1000am" name="1000am">10:00 AM</option>
+              <option class="options" value="1030am" id="1030am" name="1030am">10:30 AM</option>
+              <option class="options" value="1100am" id="1100am" name="1100am">11:00 AM</option>
+              <option class="options" value="1130am" id="1130am" name="1130am">11:30 AM</option>
+              <option class="options" value="1200pm" id="1200pm" name="1200pm">12:00 PM</option>
+              <option class="options" value="1230pm" id="1230pm" name="1230pm">12:30 PM</option>
+              <option class="options" value="100pm" id="100pm" name="100pm">1:00 PM</option>
+              <option class="options" value="130pm" id="130pm" name="130pm">1:30 PM</option>
+              <option class="options" value="200pm" id="200pm" name="200pm">2:00 PM</option>
+              <option class="options" value="230pm" id="230pm" name="230pm">2:30 PM</option>
+              <option class="options" value="300pm" id="300pm" name="300pm">3:00 PM</option>
+              <option class="options" value="330pm" id="330pm" name="330pm">3:30 PM</option>
+              <option class="options" value="400pm" id="400pm" name="400pm">4:00 PM</option>
+              <option class="options" value="430pm" id="430pm" name="430pm">4:30 PM</option>
+              <option class="options" value="500pm" id="500pm" name="500pm">5:00 PM</option>
+              <option class="options" value="530pm" id="530pm" name="530pm">5:30 PM</option>
+            </select>
+
+          </div>
+        </div>
+
+        <!-- Regular Menu Options -->
+        <div class="labelRow" id="mainMenuLabelRow">
+          <label class="optionsLabel" id="mainMenuLabel">Main Menu Options</label>
+        </div>
+        <div class="optionsRow" id="mainMenuOptionsRow">
+          <div class="childColumn" id="menuColumn">
+            <input type="number" value="" id="applePieCount" name="Apple Pie"  class="typeOption">
+            <label class="typeOptionLabel" id="applePieLabel">Apple Pie</label><br>
+
+            <input type="number" value="" id="pumpPieCount" name="Pumpkin Pie"  class="typeOption">
+            <label class="typeOptionLabel" id="pumpPieLabel">Pumpkin Pie</label><br>
+
+            <input type="number" value="" id="pecanPieCount" name="Pecan Pie"  class="typeOption">
+            <label class="typeOptionLabel" id="pecanPieLabel">Pecan Pie</label><br>
+
+            <input type="number" value="" id="ccPieCount" name="Chocolate Cream Pie"  class="typeOption">
+            <label class="typeOptionLabel" id="ccPieLabel">Chocolate Cream Pie</label><br>
+
+            <input type="number" value="" id="carrotCakeCount" name="Carrot Cake"  class="typeOption">
+            <label class="typeOptionLabel" id="carrotCakeLabel">Carrot Cake</label><br>
+
+            <input type="number" value="" id="spiceCakeCount" name="Spice Cake"  class="typeOption">
+            <label class="typeOptionLabel" id="spiceCakeLabel">Spice Cake</label><br>
+
+            <input type="number" value="" id="pumpChzckCount" name="Pumpkin Cheesecake"  class="typeOption">
+            <label class="typeOptionLabel" id="pumpChzckLabel">Pumpkin Cheesecake</label><br>
+
+            <input type="number" value="" id="appleChzckCount" name="Apple Cheesecake"  class="typeOption">
+            <label class="typeOptionLabel" id="appleChzckLabel">Apple Cheesecake</label><br>
+
+            <input type="number" value="" id="dozCinnRollCount" name="DOZEN Cinnamon Rolls"  class="typeOption">
+            <label class="typeOptionLabel" id="dozCinnRollLabel">1 Dozen (12) Cinnamon Rolls</label><br>
+
+            <input type="number" value="" id="hdCinnRollCount" name="HALF-DOZEN Cinnamon Rolls"  class="typeOption">
+            <label class="typeOptionLabel" id="hdCinnRollLabel">1/2 Dozen (6) Cinnamon Rolls</label><br>
+          </div>
+        </div>
+        
+        <!-- Platter Options -->
+        <div class="labelRow" id="platterLabelRow">
+          <label class="optionsLabel" id="platterOptionsLabel">Platter Options</label>
+        </div>
+        <div class="optionsRow" id="platterOptionsRow">
+          <!-- Left Column -->
+          <div class="childColumn" id="plattersLeftColumn">
+            <label class="inputLabel" id="pastryPlattersLabel">Pastry Platters</label><br><br>
+            <input type="number" value="" id="smPastryPlatterCount" class="typeOption" name="Sm. Pastry Platter">
+            <label class="typeOptionLabel" id="smPastryPlatterCountLabel">Small (~35 pieces)</label><br>
+            <input type="number" value="" id="lgPastryPlatterCount" class="typeOption" name="Lg. Pastry Platter">
+            <label class="typeOptionLabel" id="smPastryPlatterCountLabel">Large (~50 pieces)</label>
+          </div>
+          <!-- Right Column -->
+          <div class="childColumn" id="plattersRightColumn">
+            <label class="inputLabel" id="pastryPlattersLabel">Cookie Platters</label><br><br>
+            <input type="number" value="" id="smCookiePlatterCount" class="typeOption" name="Sm. Cookie Platter">
+            <label class="typeOptionLabel" id="smCookiePlatterCountLabel">Small (~35 pieces)</label><br>
+            <input type="number" value="" id="lgCookiePlatterCount" class="typeOption" name="Lg. Cookie Platter">
+            <label class="typeOptionLabel" id="smCookiePlatterCountLabel">Large (~50 pieces)</label>
+          </div>
+        </div>
+
+        <br>
+        <hr class="divider">
+
+        <div class="optionsRow" id="allergyRow">
+          
+          <div class="childColumn">
+            <fieldset id="allergyFieldset">
+              <legend class="inputLabel" id="allergyOptionsLabel">Allergy Information</legend><br><br>
+              <input type="radio" id="yesAllergies" name="Allergies" class="radioOption" onchange="allergy(1)">
+              <label for="yesAllergies" class="typeOptionLabel">A member of my party has an allergy.</label><br>
+              <input type="radio" id="noAllergies" name="Allergies" class="radioOption" onchange="allergy(0)" value="yesAllergies">
+              <label for="noAllergies" class="typeOptionLabel" value="noAllergies">No one in my party has an allergy.</label>
+            </fieldset>
+            
+            <br><br>
+            <label for="allergyDescription" class="typeOptionLabel" id="allergyExplLabel" hidden>Please explain:</label>
+            <input type="textarea" id="allergyDescription" name="Allergies Description" maxlength="30" placeholder='Ex. "Peanuts, Treenuts"' hidden>
+          </div>
+          
+          <div class="childColumn"></div>
+        </div>
+    
+        <script type="text/javascript">
+
+          function allergy(t) {
+            if (t == 0) {document.getElementById('allergyDescription').style.display = 'none'; 
+                         document.getElementById('allergyExplLabel').style.display = 'none';
+                        }
+            else {document.getElementById('allergyDescription').style.display = 'flex';
+                  document.getElementById('allergyExplLabel').style.display = 'flex';
+                 }
+          }
+
+        </script>
+
+        <!-- Disclosure -->
+        <div id="policyLabelDiv">
+          <input type="checkbox" id="policyInput" class="policyInput" name="Policy Agreement" required>
+          <label for="policy" class="inputLabel" id="policyLabel">I agree to the policy below.</label><br>
+        </div>
+
+        <div id="policyContainer">
+          <p id="policy">
+            By checking this box you acknowledge that submission of this form does NOT constitute a completed order.
+            We will contact you as soon as possible to confirm the price and details of your order .
+            As a courtesy, we ask that you please refrain from calling the store or emailing us regarding your order
+            within 2 days of submission of this form (excluding Mondays and other days we are not open) as we may be
+            processing the details of your order and may not be able to answer all your questions.
+          </p>
+        </div>
+
+        <input type="submit" id="submitButton" class="submitButton" value="Send Inquiry">
+      </form>
+
+    </div>
+
+  </div>
+
+  <div>
+    <form id="loginForm" name="loginForm" action="/employee-login" method="post" hidden>
+      <input type="submit" value="Employee Login" name="submitButton">
+    </form>
+  </div>
+</body>
+
+</html>
