@@ -1,0 +1,30 @@
+SAMPLE 
+
+-- CONTACT INFO --
+First Name : Justin
+Last Name : Healey
+Email : 
+Phone Number : 
+Date : Wednesday
+Time : 300pm
+
+-- MAIN MENU INFO --
+Apple Pie : 1
+Pumpkin Pie : 1
+Pecan Pie : 1
+Chocolate Cream Pie : 1
+Carrot Cake : 1
+Spice Cake : 1
+Pumpkin Cheesecake : 1
+Apple Cheesecake : 1
+DOZEN Cinnamon Rolls : 1
+HALF-DOZEN Cinnamon Rolls : 1
+
+-- PLATTER INFO --
+Sm. Pastry Platter : 1
+Lg. Pastry Platter : 1
+Sm. Cookie Platter : 1
+Lg. Cookie Platter : 1
+
+-- ALLERGY INFORMATION --
+ALLERGY : Peanuts
