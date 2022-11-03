@@ -89,35 +89,39 @@
         </div>
         <div class="optionsRow" id="mainMenuOptionsRow">
           <div class="childColumn" id="menuColumn">
-            <input type="number" value="" id="applePieCount" name="Apple Pie"  class="typeOption">
-            <label class="typeOptionLabel" id="applePieLabel">Apple Pie</label><br>
+            <input type="number" value="0" id="applePieCount" name="Apple Pie"  class="typeOption" onchange="price(20,'applePieCount')" min="0">
+            <label class="typeOptionLabel" id="applePieLabel">Apple Pie | $20</label><br>
 
-            <input type="number" value="" id="pumpPieCount" name="Pumpkin Pie"  class="typeOption">
-            <label class="typeOptionLabel" id="pumpPieLabel">Pumpkin Pie</label><br>
+            <input type="number" value="0" id="pumpPieCount" name="Pumpkin Pie"  class="typeOption" onchange="price(20,'pumpPieCount')" min="0">
+            <label class="typeOptionLabel" id="pumpPieLabel">Pumpkin Pie | $20</label><br>
 
-            <input type="number" value="" id="pecanPieCount" name="Pecan Pie"  class="typeOption">
-            <label class="typeOptionLabel" id="pecanPieLabel">Pecan Pie</label><br>
+            <input type="number" value="0" id="pecanPieCount" name="Pecan Pie"  class="typeOption" onchange="price(20,'pecanPieCount')" min="0">
+            <label class="typeOptionLabel" id="pecanPieLabel">Pecan Pie | $20</label><br>
 
-            <input type="number" value="" id="ccPieCount" name="Chocolate Cream Pie"  class="typeOption">
-            <label class="typeOptionLabel" id="ccPieLabel">Chocolate Cream Pie</label><br>
+            <input type="number" value="0" id="ccPieCount" name="Chocolate Cream Pie"  class="typeOption" onchange="price(22,'ccPieCount')" min="0">
+            <label class="typeOptionLabel" id="ccPieLabel">Chocolate Cream Pie | $22</label><br>
 
-            <input type="number" value="" id="carrotCakeCount" name="Carrot Cake"  class="typeOption">
-            <label class="typeOptionLabel" id="carrotCakeLabel">Carrot Cake</label><br>
+            <input type="number" value="0" id="carrotCakeCount" name="Carrot Cake"  class="typeOption" onchange="price(35,'carrotCakeCount')" min="0">
+            <label class="typeOptionLabel" id="carrotCakeLabel">6" Carrot Cake | $35</label><br>
 
-            <input type="number" value="" id="spiceCakeCount" name="Spice Cake"  class="typeOption">
-            <label class="typeOptionLabel" id="spiceCakeLabel">Spice Cake</label><br>
+            <input type="number" value="0" id="spiceCakeCount" name="Spice Cake"  class="typeOption" onchange="price(35,'spiceCakeCount')" min="0">
+            <label class="typeOptionLabel" id="spiceCakeLabel">6" Spice Cake | $35</label><br>
 
-            <input type="number" value="" id="pumpChzckCount" name="Pumpkin Cheesecake"  class="typeOption">
-            <label class="typeOptionLabel" id="pumpChzckLabel">Pumpkin Cheesecake</label><br>
+            <input type="number" value="0" id="pumpChzckCount" name="Pumpkin Cheesecake"  class="typeOption" onchange="price(40,'pumpChzckCount')" min="0">
+            <label class="typeOptionLabel" id="pumpChzckLabel">8" Pumpkin Cheesecake | $40</label><br>
 
-            <input type="number" value="" id="appleChzckCount" name="Apple Cheesecake"  class="typeOption">
-            <label class="typeOptionLabel" id="appleChzckLabel">Apple Cheesecake</label><br>
+            <input type="number" value="0" id="appleChzckCount" name="Apple Crisp Cheesecake"  class="typeOption" onchange="price(42,'appleChzckCount')" min="0">
+            <label class="typeOptionLabel" id="appleChzckLabel">8" Apple Crisp Cheesecake | $42</label><br>
 
-            <input type="number" value="" id="dozCinnRollCount" name="DOZEN Cinnamon Rolls"  class="typeOption">
-            <label class="typeOptionLabel" id="dozCinnRollLabel">1 Dozen (12) Cinnamon Rolls</label><br>
+            <input type="number" value="0" id="hdCinnRollCount" name="HALF-DOZEN Cinnamon Rolls"  class="typeOption" onchange="price(15,'hdCinnRollCount')" min="0">
+            <label class="typeOptionLabel" id="hdCinnRollLabel">1/2 Dozen (6) Cinnamon Rolls | $15</label><br>
 
-            <input type="number" value="" id="hdCinnRollCount" name="HALF-DOZEN Cinnamon Rolls"  class="typeOption">
-            <label class="typeOptionLabel" id="hdCinnRollLabel">1/2 Dozen (6) Cinnamon Rolls</label><br>
+            <input type="number" value="0" id="dozCinnRollCount" name="DOZEN Cinnamon Rolls"  class="typeOption" onchange="price(30,'dozCinnRollCount')" min="0">
+            <label class="typeOptionLabel" id="dozCinnRollLabel">1 Dozen (12) Cinnamon Rolls | $30</label><br>
+
+            <input type="number" value="0" id="sugarCookieCount" name="Sugar Cookie Kit" class="typeOption" onchange="price(15,'sugarCookieCount')" min="0">
+            <label class="typeOptionLabel" id="sugarCookieLabel">Sugar Cookie Kit | $15</label> 
+
           </div>
         </div>
         
@@ -129,29 +133,39 @@
           <!-- Left Column -->
           <div class="childColumn" id="plattersLeftColumn">
             <label class="inputLabel" id="pastryPlattersLabel">Pastry Platters</label><br><br>
-            <input type="number" value="" id="smPastryPlatterCount" class="typeOption" name="Sm. Pastry Platter">
-            <label class="typeOptionLabel" id="smPastryPlatterCountLabel">Small (~35 pieces)</label><br>
-            <input type="number" value="" id="lgPastryPlatterCount" class="typeOption" name="Lg. Pastry Platter">
-            <label class="typeOptionLabel" id="smPastryPlatterCountLabel">Large (~50 pieces)</label>
+
+            <input type="number" value="0" id="smPastryPlatterCount" class="typeOption" name="Sm. Pastry Platter" onchange="price(50,'smPastryPlatterCount')" min="0">
+            <label class="typeOptionLabel" id="smPastryPlatterCountLabel">Small (~35 pieces) | $50</label><br>
+
+            <input type="number" value="0" id="medPastryPlatterCount" class="typeOption" name="Med. Pastry Platter" onchange="price(65,'medPastryPlatterCount')" min="0">
+            <label class="typeOptionLabel" id="medPastryPlatterCountLabel">Medium (~50 pieces) | $65</label><br>
+
+            <input type="number" value="0" id="lgPastryPlatterCount" class="typeOption" name="Lg. Pastry Platter" onchange="price(80,'lgPastryPlatterCount')" min="0">
+            <label class="typeOptionLabel" id="lgPastryPlatterCountLabel">Large (~65 pieces) | $80</label>
           </div>
           <!-- Right Column -->
           <div class="childColumn" id="plattersRightColumn">
             <label class="inputLabel" id="pastryPlattersLabel">Cookie Platters</label><br><br>
-            <input type="number" value="" id="smCookiePlatterCount" class="typeOption" name="Sm. Cookie Platter">
-            <label class="typeOptionLabel" id="smCookiePlatterCountLabel">Small (~35 pieces)</label><br>
-            <input type="number" value="" id="lgCookiePlatterCount" class="typeOption" name="Lg. Cookie Platter">
-            <label class="typeOptionLabel" id="smCookiePlatterCountLabel">Large (~50 pieces)</label>
+
+            <input type="number" value="0" id="smCookiePlatterCount" class="typeOption" name="Sm. Cookie Platter" onchange="price(45,'smCookiePlatterCount')" min="0">
+            <label class="typeOptionLabel" id="smCookiePlatterCountLabel">Small (~35 pieces) | $45</label><br>
+
+            <input type="number" value="0" id="medCookiePlatterCount" class="typeOption" name="Med. Cookie Platter" onchange="price(60,'medCookiePlatterCount')" min="0">
+            <label class="typeOptionLabel" id="medCookiePlatterCountLabel">Medium (~50 pieces) | $60</label><br>
+
+            <input type="number" value="0" id="lgCookiePlatterCount" class="typeOption" name="Lg. Cookie Platter" onchange="price(75,'lgCookiePlatterCount')" min="0">
+            <label class="typeOptionLabel" id="lgCookiePlatterCountLabel">Large (~65 pieces) | $75</label>
           </div>
         </div>
 
         <br>
-        <hr class="divider">
+        <hr class="divider" id="secondlastDivider">
 
         <div class="optionsRow" id="allergyRow">
           
-          <div class="childColumn">
+          <div class="childColumn" id="allergyDiv">
             <fieldset id="allergyFieldset">
-              <legend class="inputLabel" id="allergyOptionsLabel">Allergy Information</legend><br><br>
+              <legend class="inputLabel" id="allergyOptionsLabel">Allergy Information</legend><br>
               <input type="radio" id="yesAllergies" name="Allergies" class="radioOption" onchange="allergy(1)">
               <label for="yesAllergies" class="typeOptionLabel">A member of my party has an allergy.</label><br>
               <input type="radio" id="noAllergies" name="Allergies" class="radioOption" onchange="allergy(0)" value="yesAllergies">
@@ -165,6 +179,8 @@
           
           <div class="childColumn"></div>
         </div>
+
+        <hr class="divider" id="lastDivider">
     
         <script type="text/javascript">
 
@@ -177,6 +193,22 @@
                  }
           }
 
+
+          var itemDict = {}
+          function price(p,i) {
+            var total = 0;
+            var thisMult = document.getElementById(i).value;
+            itemDict[i] = p*thisMult;
+            
+            for(var key in itemDict) { 
+              total = total + itemDict[key]; 
+            }
+
+            document.getElementById('total').innerHTML = '$' + total.toString();
+          }
+
+          document.getElementById('total').innerHTML = '$0';
+
         </script>
 
         <!-- Disclosure -->
@@ -188,12 +220,14 @@
         <div id="policyContainer">
           <p id="policy">
             By checking this box you acknowledge that submission of this form does NOT constitute a completed order.
-            We will contact you as soon as possible to confirm the price and details of your order .
+            We will contact you as soon as possible to confirm and collect payment for your order.
             As a courtesy, we ask that you please refrain from calling the store or emailing us regarding your order
             within 2 days of submission of this form (excluding Mondays and other days we are not open) as we may be
             processing the details of your order and may not be able to answer all your questions.
           </p>
         </div>
+
+        <label class="typeOptionLabel" id="totalLabel">My total: <span id="total">$0</span></label><br><br>
 
         <input type="submit" id="submitButton" class="submitButton" value="Send Inquiry">
       </form>
