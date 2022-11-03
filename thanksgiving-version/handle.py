@@ -7,7 +7,7 @@ from flask import Flask
 from flask import render_template, request
 from gevent.pywsgi import WSGIServer
 from flask_compress import Compress
-from os import mkdir
+from os import mkdir, environ
 
 # Imports for Email
 import smtplib
@@ -27,12 +27,12 @@ from threading import Thread
 
 
 def send_emails(customer_name, customer_email, customer_phone, order_date,
-                folderPath):
+                folderPath, customer_total):
     # General constants
     port = 465
-    password = '' # Redacted
-    smtp_server = '' # Redacted
-    sender_email = '' # Redacted
+    password = 'oodahxbdntttuxjm'
+    smtp_server = 'smtp.gmail.com'
+    sender_email = 'josiesbakery518.ordering@gmail.com'
 
     if order_date == 'Tuesday': order_date = 'Tuesday 11/22/2022'
     else: order_date = 'Wednesday 11/23/2022'
@@ -45,7 +45,7 @@ def send_emails(customer_name, customer_email, customer_phone, order_date,
     conf_message['From'] = "Josie's Bakery"
     conf_message['To'] = customer_email
     conf_message.set_content(
-        f"Hello {customer_name},\n\nWe have received your Thanksgiving order for {order_date}! Please allow us up to two days to process your order, a member of our team will call you to confirm your order and collect pre-payment.\n\nBest,\nThe Josie's Bakery Team"
+        f"Hello {customer_name},\n\nWe have received your Thanksgiving order for {order_date}! Please allow us up to two days to process your order, a member of our team will call you to confirm your order and collect pre-payment (${customer_total}).\n\nBest,\nThe Josie's Bakery Team"
     )
 
     orderDetails = open(f'{folderPath}/order-details.txt').read().splitlines()
@@ -56,10 +56,10 @@ def send_emails(customer_name, customer_email, customer_phone, order_date,
 
     for line in orderDetails:
         formatOrderDetails += f'\n{line}'
-
+        
     # ---------- + ---------- #
     # Notification message to the bakery
-    bakery_email = '' # Redacted
+    bakery_email = 'jjhealey19@gmail.com'  # CHANGE TO THE BAKERY'S EMAIL !!!!!
 
     notif_msg = EmailMessage()
     notif_msg["From"] = customer_email
@@ -104,6 +104,7 @@ def submission():
     cust_lName = request.form.get('Last Name')
     order_date = request.form.get('Date')
     pathExt = f'/{order_date}/{cust_fName}-{cust_lName}_{order_date}'
+    cust_total = 0
 
     try:
         mkdir(
@@ -114,25 +115,36 @@ def submission():
 
         loe = request.form
         seen = []
-        menuItems = [
-            'Apple Pie', 'Pumpkin Pie', 'Pecan Pie', 'Chocolate Cream Pie',
-            'Carrot Cake', 'Spice Cake', 'Pumpkin Cheesecake',
-            'DOZEN Cinnamon Rolls', 'HALF-DOZEN Cinnamon Rolls',
-            'Sm. Pastry Platter', 'Lg. Pastry Platter', 'Sm. Cookie Platter',
-            'Lg. Cookie Platter'
-        ]
+        menuItems = {
+            'Apple Pie':20, 
+            'Pumpkin Pie':20,
+            'Pecan Pie':20, 
+            'Chocolate Cream Pie':22,
+            'Carrot Cake':35, 
+            'Spice Cake':35, 
+            'Pumpkin Cheesecake':40,
+            'Apple Crisp Cheesecake':42,
+            'DOZEN Cinnamon Rolls':30, 
+            'HALF-DOZEN Cinnamon Rolls':15,
+            'Sm. Pastry Platter':50, 
+            'Med. Pastry Platter':65, 
+            'Lg. Pastry Platter':80, 
+            'Sm. Cookie Platter':45, 
+            'Med. Cookie Platter':60, 
+            'Lg. Cookie Platter':75,
+            'Sugar Cookie Kit':15
+            }
 
         # Write to the text file with the relevant order details
         thisFormTxt.write('\n-- CONTACT INFO --\n')
         for e in loe:
             v = request.form.get(e)
             print(v)
-            if v != '' and e != 'Policy Agreement' and (not 'Order' in e):
+            if v != '' and v!= '0' and e != 'Policy Agreement' and (not 'Order' in e):
                 if e == 'Allergies':
                     thisFormTxt.write('\n-- ALLERGY INFORMATION --\n')
                     thisFormTxt.write(
-                        f'ALLERGY : {request.form.get("Allergies Description")}\n'
-                    )
+                        f'ALLERGY : {request.form.get("Allergies Description")}\n')
                 elif (not 'Allergies' in e):
                     if ('Platter' in e) and (not 'Platter' in seen):
                         thisFormTxt.write('\n-- PLATTER INFO --\n')
@@ -140,8 +152,13 @@ def submission():
                     elif (e in menuItems) and (not 'Main' in seen):
                         thisFormTxt.write('\n-- MAIN MENU INFO --\n')
                         seen.append('Main')
+
                     thisFormTxt.write(f'{e} : {v}\n')
 
+                    if e in menuItems:
+                        cust_total+=menuItems[e]
+
+        thisFormTxt.write(f'\n\nCUSTOMER TOTAL: ${cust_total}')
         thisFormTxt.close()
 
       
@@ -151,7 +168,7 @@ def submission():
                     args=(f'{cust_fName} {cust_lName}',
                           request.form.get('Email'),
                           request.form.get('Phone Number'), order_date,
-                          f'./forms/{pathExt}'))
+                          f'./forms/{pathExt}', cust_total))
         t1.start()
 
         print('Rendering template')
