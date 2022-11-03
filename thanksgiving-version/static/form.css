@@ -25,6 +25,11 @@
     margin-bottom: 7%;
 }
 
+#secondlastDivider, #lastDivider {
+    margin-bottom: 5%;
+    margin-top: 2%;
+}
+
 /* Largest Container */
 .bodyContainer {
     display: flex;
@@ -125,7 +130,32 @@
     font-family: "Judson", serif;
 }
 
-#yesAllergies, #noAllergies {
+#allergyDiv {
+    margin: 0%;
+    width: 50%;
+}
+
+#allergyExplLabel, #allergyDescription {
+    margin-left: 4%;
+}
+
+#allergyDescription {
+    font-family: 'Judson', serif;
+    font-size: 1vw;
+    height: 1.2vw;
+    width: 15vw;
+    margin-top: 1%;
+}
+
+#allergyOptionsLabel {
+    text-align: left;
+}
+
+#allergyFieldset {
+    border: none;
+}
+
+#noAllergies {
     margin-top: 2%;
 }
 
@@ -140,6 +170,7 @@
     font-family: "Judson", serif;
     width: 20%;
     height: auto;
+    margin-top: 3%;
 }
 
 #policyLabelDiv {
@@ -158,5 +189,10 @@
     margin-top: 2%;
     margin-bottom: 8%;
     border: 1px solid #000000;
+}
+
+#totalLabel {
+    border: 1px solid black;
+    padding: 1%;
 }
 
