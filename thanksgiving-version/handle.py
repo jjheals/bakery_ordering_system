@@ -30,9 +30,9 @@ def send_emails(customer_name, customer_email, customer_phone, order_date,
                 folderPath, customer_total):
     # General constants
     port = 465
-    password = 'oodahxbdntttuxjm'
-    smtp_server = 'smtp.gmail.com'
-    sender_email = 'josiesbakery518.ordering@gmail.com'
+    password = '' # Redacted
+    smtp_server = '' # Redacted
+    sender_email = '' # Redacted
 
     if order_date == 'Tuesday': order_date = 'Tuesday 11/22/2022'
     else: order_date = 'Wednesday 11/23/2022'
@@ -59,7 +59,7 @@ def send_emails(customer_name, customer_email, customer_phone, order_date,
         
     # ---------- + ---------- #
     # Notification message to the bakery
-    bakery_email = 'jjhealey19@gmail.com'  # CHANGE TO THE BAKERY'S EMAIL !!!!!
+    bakery_email = '' # Redacted
 
     notif_msg = EmailMessage()
     notif_msg["From"] = customer_email
