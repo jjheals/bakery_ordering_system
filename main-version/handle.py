@@ -12,6 +12,9 @@ from werkzeug.utils import secure_filename
 # Imports for Email
 import smtplib
 from email.message import EmailMessage
+from email.mime.multipart import MIMEMultipart
+from email.mime.image import MIMEImage
+from email.mime.text import MIMEText
 
 # Imports for threading
 from threading import Thread
@@ -26,10 +29,12 @@ from threading import Thread
 # ** Want to move to a separate file but need to mess with the imports . . . this works for now
 
 def send_emails(customer_name, customer_email, customer_phone, order_date,
-                folderPath):
+                folderPath, images):
+
+    print('sending emails ...')
     # General constants
-    port = 465
-    password = '' # Redacted
+    port = 0
+    password = '' # Redacted 
     smtp_server = '' # Redacted
     sender_email = '' # Redacted
 
@@ -45,31 +50,56 @@ def send_emails(customer_name, customer_email, customer_phone, order_date,
     )
 
     orderDetails = open(f'{folderPath}/order-details.txt').read().splitlines()
-    print(f'order-details \n{orderDetails}')
     formatOrderDetails = ''
 
     print('Formatting order details . . .')
 
     for line in orderDetails:
         print(f'\n{line}')
-        formatOrderDetails += f'\n{line}'
+        formatOrderDetails += f'<br>{line}'
 
     # ---------- + ---------- #
     # Notification message to the bakery
-    bakery_email = '' # Redacted
+    bakery_email = ''  # Redacted
 
-    notif_msg = EmailMessage()
-    notif_msg["From"] = customer_email
-    notif_msg[
-        "Subject"] = f"New Order Inquiry from {customer_name} ({order_date})"
-    notif_msg["To"] = bakery_email
-    notif_msg.set_content(
-        f"{customer_name} ({customer_email}, {customer_phone}) has submitted a new order for {order_date}.\n\nOrder details:\n{formatOrderDetails}"
-    )
+    prim_notif_msg = MIMEMultipart('related')
+    prim_notif_msg["From"] = customer_email
+    prim_notif_msg["Subject"] = f"New Order Inquiry from {customer_name} ({order_date})"
+    prim_notif_msg["To"] = bakery_email
 
+    alt_notif_msg = MIMEMultipart('alternative')
+    prim_notif_msg.attach(alt_notif_msg)
+
+    alt_text = MIMEText(f"{customer_name} ({customer_email}, {customer_phone}) \
+                has submitted a new order for {order_date}.\n\nOrder details:\n{formatOrderDetails}")
+    alt_notif_msg.attach(alt_text)
+
+    images_html = ''
+
+    #Attach Images 
+    i=1
+    for path in images:
+        fp = open(path, 'rb') #Read image 
+        img = MIMEImage(fp.read())
+        fp.close()
+
+        # Define the image's ID as referenced above
+        img.add_header('Content-ID', f'<image{i}>')
+        prim_notif_msg.attach(img)
+
+        images_html += f'<br><img src="cid:image{i}"><br><br>'
+        i+=1
+        
+    alt_html = MIMEText(f'{customer_name} ({customer_email}, {customer_phone}) \
+                        has submitted a new order for {order_date}.\n\nOrder details:\n{formatOrderDetails}\
+                        <br><br>{images_html}>', 'html')
+    alt_notif_msg.attach(alt_html)
+
+    # ---------- + ---------- #
+    # Sending both emails
     with smtplib.SMTP_SSL(smtp_server, port) as smtp:
         smtp.login(sender_email, password)
-        smtp.send_message(notif_msg)
+        smtp.sendmail(sender_email, bakery_email, prim_notif_msg.as_string())
         print('Notification message sent.')
         smtp.send_message(conf_message)
         print('Confirmation message sent.')
@@ -131,13 +161,17 @@ def submission():
         thisFormTxt.close()
         
         # Save the reference images, if applicable
+        image_paths = []
         print(f'Saving {len(loi)} images . . . ')
         for i in loi:
             i.save(f'./forms/{pathExt}/{secure_filename(i.filename)}')
+            image_paths.append(f'./forms/{pathExt}/{secure_filename(i.filename)}')
 
         # Create a thread to send the emails, allowing the page to render while this is going on
         #   so the customer doesn't have to wait 
-        t1 = Thread(target=send_emails, args=(f'{cust_fName} {cust_lName}', request.form.get('Email'), request.form.get('Phone Number'), order_date, f'./forms/{pathExt}'))
+        t1 = Thread(target=send_emails, args=(f'{cust_fName} {cust_lName}', request.form.get('Email'), 
+                                              request.form.get('Phone Number'), order_date, f'./forms/{pathExt}', 
+                                              image_paths))
         t1.start()
         
         print('Rendering template')
