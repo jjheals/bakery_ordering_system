@@ -22,21 +22,16 @@ from threading import Thread
 # ---------------------------------------------------------------------------------#
 # Function to send the emails 
 
-#NOTES:
-# Is there a way to set the 'reply to' ?
-#      --> want to set the confirmation message's reply to to the bakery
-#      --> want to set the notification message's reply to to the customer
-# ** Want to move to a separate file but need to mess with the imports . . . this works for now
-
 def send_emails(customer_name, customer_email, customer_phone, order_date,
                 folderPath, images):
 
     print('sending emails ...')
     # General constants
     port = 0
-    password = '' # Redacted 
-    smtp_server = '' # Redacted
-    sender_email = '' # Redacted
+    password = '' 
+    smtp_server = ''
+    sender_email = ''
+    bakery_email = ''  
 
     # ---------- + ---------- #
     # Confirmation message to the customer
@@ -45,11 +40,13 @@ def send_emails(customer_name, customer_email, customer_phone, order_date,
     conf_message['Subject'] = 'Order Inquiry Confirmation'
     conf_message['From'] = "Josie's Bakery"
     conf_message['To'] = customer_email
+    conf_message.add_header('reply-to', bakery_email)
     conf_message.set_content(
         f"Hello {customer_name},\n\nWe have received your order inquiry for {order_date}! Please allow us up to two days to process your order, a member of our team will call you to confirm your order and collect pre-payment.\n\nBest,\nThe Josie's Bakery Team"
     )
 
     orderDetails = open(f'{folderPath}/order-details.txt').read().splitlines()
+    print(f'order-details \n{orderDetails}')
     formatOrderDetails = ''
 
     print('Formatting order details . . .')
@@ -60,12 +57,12 @@ def send_emails(customer_name, customer_email, customer_phone, order_date,
 
     # ---------- + ---------- #
     # Notification message to the bakery
-    bakery_email = ''  # Redacted
 
     prim_notif_msg = MIMEMultipart('related')
     prim_notif_msg["From"] = customer_email
     prim_notif_msg["Subject"] = f"New Order Inquiry from {customer_name} ({order_date})"
     prim_notif_msg["To"] = bakery_email
+    prim_notif_msg.add_header('reply-to', customer_email)
 
     alt_notif_msg = MIMEMultipart('alternative')
     prim_notif_msg.attach(alt_notif_msg)
@@ -77,22 +74,25 @@ def send_emails(customer_name, customer_email, customer_phone, order_date,
     images_html = ''
 
     #Attach Images 
-    i=1
-    for path in images:
-        fp = open(path, 'rb') #Read image 
-        img = MIMEImage(fp.read())
-        fp.close()
+    print(images)
 
-        # Define the image's ID as referenced above
-        img.add_header('Content-ID', f'<image{i}>')
-        prim_notif_msg.attach(img)
+    if images:
+        i=1
+        for path in images:
+            fp = open(path, 'rb') #Read image 
+            img = MIMEImage(fp.read())
+            fp.close()
 
-        images_html += f'<br><img src="cid:image{i}"><br><br>'
-        i+=1
+            # Define the image's ID as referenced above
+            img.add_header('Content-ID', f'<image{i}>')
+            prim_notif_msg.attach(img)
+
+            images_html += f'<br><img src="cid:image{i}"><br><br>'
+            i+=1
         
     alt_html = MIMEText(f'{customer_name} ({customer_email}, {customer_phone}) \
                         has submitted a new order for {order_date}.\n\nOrder details:\n{formatOrderDetails}\
-                        <br><br>{images_html}>', 'html')
+                        <br><br>{images_html}', 'html')
     alt_notif_msg.attach(alt_html)
 
     # ---------- + ---------- #
@@ -157,15 +157,23 @@ def submission():
                     
                 thisFormTxt.write(f'{e} : {v}\n')
                     
-        thisFormTxt.write(f'\nNumber of files: {len(loi)}') 
-        thisFormTxt.close()
+
+        
         
         # Save the reference images, if applicable
         image_paths = []
         print(f'Saving {len(loi)} images . . . ')
-        for i in loi:
-            i.save(f'./forms/{pathExt}/{secure_filename(i.filename)}')
-            image_paths.append(f'./forms/{pathExt}/{secure_filename(i.filename)}')
+        try:
+            for i in loi:
+                i.save(f'./forms/{pathExt}/{secure_filename(i.filename)}')
+                image_paths.append(f'./forms/{pathExt}/{secure_filename(i.filename)}')
+            
+            thisFormTxt.write(f'\nNumber of files: {len(loi)}') 
+
+        except PermissionError: 
+            thisFormTxt.write(f'\nNumber of files: 0')
+
+        thisFormTxt.close()
 
         # Create a thread to send the emails, allowing the page to render while this is going on
         #   so the customer doesn't have to wait 
@@ -183,9 +191,6 @@ def submission():
         )
         return render_template('index.html', errorStatus='flex')
     
-    
-
-
 
 # ---------- + ---------- #
 if __name__ == '__main__':
